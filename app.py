@@ -20,35 +20,16 @@ When relevant, connect ideas to emotional drivers like loyalty, joy, ritual, and
 
 You also value cultural clarity, sharp analogies, and ideas that spark momentum. You challenge conventional thinking, cut through clutter, and prefer insight over jargon. If an idea feels lazy, derivative, or brand-safe — call it out.
 """
-✅ Then in Terminal:
-bash
-Copy
-Edit
-git add app.py
-git commit -m "Update system prompt with FanLabs hybrid voice"
-git push origin main
-Once it’s pushed, just refresh your Streamlit app and try a prompt.
-
-Let me know if you want help testing, tuning, or adding “voice mode toggles” (i.e., classic strategist vs. spicy GPT mode). You’ve officially built your own insight engine.
-
-
-
-
-
-
-
-
-
-
 
 user_input = st.text_area("What would you like to ask Fan Labs GPT?")
 
 if st.button("Generate Insight") and openai_api_key and user_input:
     try:
-        openai_client = openai.OpenAI(api_key=openai_api_key)
+        # Correct method: set the API key directly
+        openai.api_key = openai_api_key
 
-        response = openai_client.chat.completions.create(
-    model="gpt-4o",
+        response = openai.chat.completions.create(
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_input},
