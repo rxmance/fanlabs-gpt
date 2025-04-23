@@ -18,7 +18,7 @@ if st.button("Generate Insight") and openai_api_key and user_input:
         openai_client = openai.OpenAI(api_key=openai_api_key)
 
         response = openai_client.chat.completions.create(
-            model="gpt-4",
+            model=""gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_input},
