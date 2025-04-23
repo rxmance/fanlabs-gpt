@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+import openai
 
 st.set_page_config(page_title="Fan Labs GPT", layout="centered")
 st.title("🧠 Fan Labs GPT")
@@ -15,9 +15,9 @@ user_input = st.text_area("What would you like to ask Fan Labs GPT?")
 
 if st.button("Generate Insight") and openai_api_key and user_input:
     try:
-        client = OpenAI(api_key=openai_api_key)
+        openai_client = openai.OpenAI(api_key=openai_api_key)
 
-        response = client.chat.completions.create(
+        response = openai_client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": system_prompt},
