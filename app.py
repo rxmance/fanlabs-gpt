@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 
 st.set_page_config(page_title="Fan Labs GPT", layout="centered")
 st.title("🧠 Fan Labs GPT")
@@ -15,8 +15,9 @@ user_input = st.text_area("What would you like to ask Fan Labs GPT?")
 
 if st.button("Generate Insight") and openai_api_key and user_input:
     try:
-        openai.api_key = openai_api_key
-        response = openai.ChatCompletion.create(
+        client = OpenAI(api_key=openai_api_key)
+
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": system_prompt},
@@ -24,8 +25,9 @@ if st.button("Generate Insight") and openai_api_key and user_input:
             ],
             temperature=0.7,
         )
+
         st.markdown("### 💡 Insight")
-        st.write(response['choices'][0]['message']['content'])
+        st.write(response.choices[0].message.content)
 
     except Exception as e:
         st.error(f"Error: {e}")
